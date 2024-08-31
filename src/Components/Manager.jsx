@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Manager = () => {
   // State to manage form data
-  const [form, setForm] = useState({ site: '', username: '', password: '' });
+  const [form, setForm] = useState({ site: "", username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
+  const [passwordArray, setPasswordArray] = useState([]);
+
+  //   useeffect snippet
+
+  useEffect(() => {
+    let passwords = localStorage.getItem("passwords");
+    if (passwords) {
+      setPasswordArray(JSON.parse(passwords));
+    }
+  }, []);
 
   // Function to toggle password visibility
   const togglePasswordVisibility = () => {
@@ -13,11 +23,13 @@ const Manager = () => {
   // Function to handle form submission
   const savePassword = (e) => {
     e.preventDefault(); // Prevent the default form submission
-    console.log(form);
+    setPasswordArray([...passwordArray, form]);
+    localStorage.setItem("passwords", JSON.stringify([...passwordArray, form]));
+    console.log(...passwordArray, form);
   };
 
   // Function to handle input changes
-  const handleChange = (e) => { 
+  const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -27,6 +39,8 @@ const Manager = () => {
 
       {/* content */}
       <div className="mx-auto mycontainer px-4 sm:px-8 lg:px-16">
+        <div className="mb-8">
+
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center">
           <span className="text-green-700">&lt; </span>
           <span className="text-white">
@@ -36,15 +50,19 @@ const Manager = () => {
         <p className="text-green-900 text-base sm:text-lg md:text-xl text-center mt-2">
           Your Very Own Password Manager
         </p>
+        </div>
 
         {/* input fields */}
-        <form onSubmit={savePassword} className="flex flex-col p-4 text-black gap-6 sm:gap-8 items-center">
+        <form
+          onSubmit={savePassword}
+          className="flex flex-col p-4 text-black gap-6 sm:gap-8 items-center"
+        >
           <input
             value={form.site}
             onChange={handleChange}
             className="rounded-full border border-green-500 w-full p-4 py-2 text-sm sm:text-base"
             type="text"
-            name='site'
+            name="site"
             id="website-url"
             placeholder="Enter website URL"
             aria-label="Enter website URL"
@@ -58,7 +76,7 @@ const Manager = () => {
               id="website-username"
               placeholder="Enter Website Username"
               aria-label="Enter website username"
-              name='username'
+              name="username"
             />
             <div className="w-full flex items-center">
               <input
@@ -69,13 +87,13 @@ const Manager = () => {
                 id="website-password"
                 placeholder="Enter Website Password"
                 aria-label="Enter website password"
-                name='password'
+                name="password"
               />
               <lord-icon
                 src="https://cdn.lordicon.com/vfczflna.json"
                 trigger="hover"
                 colors="primary:#000,secondary:#0000"
-                style={{ width: '30px', height: '30px', margin: '-40px' }}
+                style={{ width: "30px", height: "30px", margin: "-40px" }}
                 className="cursor-pointer"
                 onClick={togglePasswordVisibility}
               ></lord-icon>
@@ -96,6 +114,47 @@ const Manager = () => {
             Add Password
           </button>
         </form>
+
+        {/* passwortd table  */}
+
+        {/* password table  */}
+
+        <div className="passwords mt-8">
+          <h2 className="text-2xl font-bold text-white mb-4">My Passwords :</h2>
+          <table className="table-auto w-full bg-gray-800 border border-gray-700 rounded-lg overflow-hidden">
+            <thead className=" text-white">
+              <tr>
+                <th className="p-4 border-b border-gray-600">Website</th>
+                <th className="p-4 border-b border-gray-600">Username</th>
+                <th className="p-4 border-b border-gray-600">Password</th>
+              </tr>
+            </thead>
+            <tbody>
+              {passwordArray.length > 0 ? (
+                passwordArray.map((item, index) => (
+                  <tr key={index}>
+                    <td className="p-4 border-b border-gray-600 text-white text-center" >
+                        <a href={item.site} target="_blank">
+                      {item.site}</a>
+                    </td>
+                    <td className="p-4 border-b border-gray-600 text-white text-center">
+                      {item.username}
+                    </td>
+                    <td className="p-4 border-b border-gray-600 text-white text-center">
+                      {item.password}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="3" className="p-4 text-center text-gray-500">
+                    No passwords saved
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -1,12 +1,36 @@
 const Navbar = () => {
   return (
-    <div className="navbar flex justify-center text-white my-7">
-      <div className="relative p-1 bg-gradient-to-r from-blue-500 to-pink-500 rounded-xl transition-all duration-400 ease-in-out ">
-        <button className="text-3xl py-2 px-3 rounded-lg border-none  text-white cursor-pointer shadow-md">
-          Password Manager
-        </button>
+    <>
+      <div className="navbar container mx-auto">
+        <div className="flex-1 text-3xl">
+        <span className="text-green-700">&lt; </span>
+          <span className="text-white">
+            Pass<span className="text-green-700">/OP&gt; </span>
+          </span>
+        </div>
+        <div className="flex-none gap-2">
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <a href="https://github.com/Artreeus/React_password_manager" target="_blank">
+                <img
+                  alt="Tailwind CSS Navbar component"
+
+                  src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+                /></a>
+              </div>
+            </div>
+          
+          </div>
+        </div>
       </div>
-    </div>
+
+
+    </>
   );
 };
 
