@@ -1,12 +1,24 @@
 import React, { useState } from "react";
 
 const Manager = () => {
-  // State to manage password visibility
+  // State to manage form data
+  const [form, setForm] = useState({ site: '', username: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
 
   // Function to toggle password visibility
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  // Function to handle form submission
+  const savePassword = (e) => {
+    e.preventDefault(); // Prevent the default form submission
+    console.log(form);
+  };
+
+  // Function to handle input changes
+  const handleChange = (e) => { 
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   return (
@@ -26,36 +38,45 @@ const Manager = () => {
         </p>
 
         {/* input fields */}
-        <form className="flex flex-col p-4 text-black gap-6 sm:gap-8 items-center">
+        <form onSubmit={savePassword} className="flex flex-col p-4 text-black gap-6 sm:gap-8 items-center">
           <input
+            value={form.site}
+            onChange={handleChange}
             className="rounded-full border border-green-500 w-full p-4 py-2 text-sm sm:text-base"
             type="text"
+            name='site'
             id="website-url"
             placeholder="Enter website URL"
             aria-label="Enter website URL"
           />
           <div className="flex flex-col sm:flex-row w-full justify-between gap-6 sm:gap-8">
             <input
+              value={form.username}
+              onChange={handleChange}
               className="rounded-full border border-green-500 w-full p-4 py-2 text-sm sm:text-base"
               type="text"
               id="website-username"
               placeholder="Enter Website Username"
               aria-label="Enter website username"
+              name='username'
             />
-            <div className=" w-full flex items-center">
+            <div className="w-full flex items-center">
               <input
-                className="rounded-full border border-green-500 w-full p-4 py-2 text-sm sm:text-base "
+                value={form.password}
+                onChange={handleChange}
+                className="rounded-full border border-green-500 w-full p-4 py-2 text-sm sm:text-base"
                 type={showPassword ? "text" : "password"}
                 id="website-password"
                 placeholder="Enter Website Password"
                 aria-label="Enter website password"
+                name='password'
               />
               <lord-icon
                 src="https://cdn.lordicon.com/vfczflna.json"
                 trigger="hover"
                 colors="primary:#000,secondary:#0000"
-                style={{ width: '30px', height: '30px', margin:'-40px' }}
-                className=" cursor-pointer "
+                style={{ width: '30px', height: '30px', margin: '-40px' }}
+                className="cursor-pointer"
                 onClick={togglePasswordVisibility}
               ></lord-icon>
             </div>
