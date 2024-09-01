@@ -6,8 +6,7 @@ const Manager = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordArray, setPasswordArray] = useState([]);
 
-  //   useeffect snippet
-
+  // Load passwords from localStorage when the component mounts
   useEffect(() => {
     let passwords = localStorage.getItem("passwords");
     if (passwords) {
@@ -23,9 +22,14 @@ const Manager = () => {
   // Function to handle form submission
   const savePassword = (e) => {
     e.preventDefault(); // Prevent the default form submission
-    setPasswordArray([...passwordArray, form]);
-    localStorage.setItem("passwords", JSON.stringify([...passwordArray, form]));
-    console.log(...passwordArray, form);
+
+    // Add the new password to the existing array and save to localStorage
+    const updatedPasswords = [...passwordArray, form];
+    setPasswordArray(updatedPasswords);
+    localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
+
+    // Reset the form fields
+    setForm({ site: "", username: "", password: "" });
   };
 
   // Function to handle input changes
@@ -35,21 +39,20 @@ const Manager = () => {
 
   return (
     <div>
-      <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      <div className="absolute top-0 left-0 z-[-2] h-full w-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
 
       {/* content */}
       <div className="mx-auto mycontainer px-4 sm:px-8 lg:px-16">
         <div className="mb-8">
-
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center">
-          <span className="text-green-700">&lt; </span>
-          <span className="text-white">
-            Pass<span className="text-green-700">/OP&gt; </span>
-          </span>
-        </h1>
-        <p className="text-green-900 text-base sm:text-lg md:text-xl text-center mt-2">
-          Your Very Own Password Manager
-        </p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center">
+            <span className="text-green-700">&lt; </span>
+            <span className="text-white">
+              Pass<span className="text-green-700">/OP&gt; </span>
+            </span>
+          </h1>
+          <p className="text-green-900 text-base sm:text-lg md:text-xl text-center mt-2">
+            Your Very Own Password Manager
+          </p>
         </div>
 
         {/* input fields */}
@@ -115,10 +118,7 @@ const Manager = () => {
           </button>
         </form>
 
-        {/* passwortd table  */}
-
-        {/* password table  */}
-
+        {/* password table */}
         <div className="passwords mt-8">
           <h2 className="text-2xl font-bold text-white mb-4">My Passwords :</h2>
           <table className="table-auto w-full bg-gray-800 border border-gray-700 rounded-lg overflow-hidden">
@@ -133,15 +133,66 @@ const Manager = () => {
               {passwordArray.length > 0 ? (
                 passwordArray.map((item, index) => (
                   <tr key={index}>
-                    <td className="p-4 border-b border-gray-600 text-white text-center" >
-                        <a href={item.site} target="_blank">
-                      {item.site}</a>
+                    <td className="p-4 border-b border-gray-600 text-white text-center flex items-center justify-center gap-1">
+                      <div>
+                        <a
+                          href={item.site}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {item.site}
+                        </a>
+                      </div>
+                      <div className="cursor-pointer">
+                        <lord-icon
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            "padding-top": "3px",
+                            "padding-left": "3px",
+                          }}
+                          src="https://cdn.lordicon.com/fyxgoiep.json"
+                          trigger="hover"
+                          colors="primary:#fff,secondary:#fff"
+                        ></lord-icon>
+                      </div>
                     </td>
                     <td className="p-4 border-b border-gray-600 text-white text-center">
-                      {item.username}
+                      <div className="flex items-center justify-center">
+                        {item.username}
+                        <div className="cursor-pointer">
+                          <lord-icon
+                            style={{
+                              width: "20px",
+                              height: "20px",
+                              "padding-top": "3px",
+                              "padding-left": "3px",
+                            }}
+                            src="https://cdn.lordicon.com/fyxgoiep.json"
+                            trigger="hover"
+                            colors="primary:#fff,secondary:#fff"
+                          ></lord-icon>
+                        </div>
+                      </div>
                     </td>
                     <td className="p-4 border-b border-gray-600 text-white text-center">
-                      {item.password}
+                      <div className="flex items-center justify-center">
+                        {" "}
+                        {item.password}
+                        <div className="cursor-pointer">
+                          <lord-icon
+                            style={{
+                              width: "20px",
+                              height: "20px",
+                              "padding-top": "3px",
+                              "padding-left": "3px",
+                            }}
+                            src="https://cdn.lordicon.com/fyxgoiep.json"
+                            trigger="hover"
+                            colors="primary:#fff,secondary:#fff"
+                          ></lord-icon>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 ))

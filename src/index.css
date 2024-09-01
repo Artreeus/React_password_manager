@@ -7,3 +7,14 @@
         @apply container px-40 py-16;
     }
 }
+
+/* global.css or main.css */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden; /* Optional: prevents horizontal overflow */
+  }
+  
