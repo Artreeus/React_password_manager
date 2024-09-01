@@ -19,6 +19,12 @@ const Manager = () => {
     setShowPassword(!showPassword);
   };
 
+  // Copy text function
+  const copyText = (text) => {
+    navigator.clipboard.writeText(text);
+    alert('Text Has been copied');
+  };
+
   // Function to handle form submission
   const savePassword = (e) => {
     e.preventDefault(); // Prevent the default form submission
@@ -122,7 +128,7 @@ const Manager = () => {
         <div className="passwords mt-8">
           <h2 className="text-2xl font-bold text-white mb-4">My Passwords :</h2>
           <table className="table-auto w-full bg-gray-800 border border-gray-700 rounded-lg overflow-hidden">
-            <thead className=" text-white">
+            <thead className="text-white">
               <tr>
                 <th className="p-4 border-b border-gray-600">Website</th>
                 <th className="p-4 border-b border-gray-600">Username</th>
@@ -133,8 +139,8 @@ const Manager = () => {
               {passwordArray.length > 0 ? (
                 passwordArray.map((item, index) => (
                   <tr key={index}>
-                    <td className="p-4 border-b border-gray-600 text-white text-center flex items-center justify-center gap-1">
-                      <div>
+                    <td className="p-4 border-b border-gray-600 text-white">
+                      <div className="flex items-center justify-center gap-2">
                         <a
                           href={item.site}
                           target="_blank"
@@ -142,31 +148,16 @@ const Manager = () => {
                         >
                           {item.site}
                         </a>
-                      </div>
-                      <div className="cursor-pointer">
-                        <lord-icon
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                            "padding-top": "3px",
-                            "padding-left": "3px",
-                          }}
-                          src="https://cdn.lordicon.com/fyxgoiep.json"
-                          trigger="hover"
-                          colors="primary:#fff,secondary:#fff"
-                        ></lord-icon>
-                      </div>
-                    </td>
-                    <td className="p-4 border-b border-gray-600 text-white text-center">
-                      <div className="flex items-center justify-center">
-                        {item.username}
-                        <div className="cursor-pointer">
+                        <div
+                          className="cursor-pointer"
+                          onClick={() => copyText(item.site)}
+                        >
                           <lord-icon
                             style={{
                               width: "20px",
                               height: "20px",
-                              "padding-top": "3px",
-                              "padding-left": "3px",
+                              paddingTop: "3px",
+                              paddingLeft: "3px",
                             }}
                             src="https://cdn.lordicon.com/fyxgoiep.json"
                             trigger="hover"
@@ -175,17 +166,40 @@ const Manager = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="p-4 border-b border-gray-600 text-white text-center">
-                      <div className="flex items-center justify-center">
-                        {" "}
-                        {item.password}
-                        <div className="cursor-pointer">
+                    <td className="p-4 border-b border-gray-600 text-white  gap-2">
+                      <div className="flex items-center justify-center gap-2">
+                        <span>{item.username}</span>
+                        <div
+                          className="cursor-pointer"
+                          onClick={() => copyText(item.username)}
+                        >
                           <lord-icon
                             style={{
                               width: "20px",
                               height: "20px",
-                              "padding-top": "3px",
-                              "padding-left": "3px",
+                              paddingTop: "3px",
+                              paddingLeft: "3px",
+                            }}
+                            src="https://cdn.lordicon.com/fyxgoiep.json"
+                            trigger="hover"
+                            colors="primary:#fff,secondary:#fff"
+                          ></lord-icon>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="p-4 border-b border-gray-600 text-white text-center gap-2">
+                      <div className="flex items-center justify-center gap-2">
+                        <span>{item.password}</span>
+                        <div
+                          className="cursor-pointer"
+                          onClick={() => copyText(item.password)}
+                        >
+                          <lord-icon
+                            style={{
+                              width: "20px",
+                              height: "20px",
+                              paddingTop: "3px",
+                              paddingLeft: "3px",
                             }}
                             src="https://cdn.lordicon.com/fyxgoiep.json"
                             trigger="hover"
