@@ -7,7 +7,7 @@ const Navbar = () => {
           Pass<span className="text-green-700">/OP&gt; </span>
         </span>
       </div>
-      <div className="flex-none flex items-center gap-2">
+      <div className="flex-none flex items-center gap-2 ring-white ring-1 rounded-2xl p-2">
         <a
           href="https://github.com/Artreeus/React_password_manager"
           target="_blank"
@@ -17,7 +17,7 @@ const Navbar = () => {
           <img
             alt="GitHub Logo"
             src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-            className="w-8 h-8 rounded-full" // Adjust size as needed
+            className="w-8 h-8 rounded-full " // Adjust size as needed
           />
           <span className="text-white font-medium">GitHub</span>
         </a>
