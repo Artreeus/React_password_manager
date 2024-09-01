@@ -53,19 +53,32 @@ const Manager = () => {
   // delete password function
 
   const deletePassword = (id) => {
-    console.log("Deleting Password with id ", id);
-    setPasswordArray(passwordArray.filter((item) => item.id !== id));
-    localStorage.setItem(
-      "passwords",
-      JSON.stringify(passwordArray.filter((item) => item.id !== id))
+    // Show a confirmation dialog
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this password?"
     );
+
+    if (confirmDelete) {
+      // Proceed with deletion if user confirms
+      handleDelete(id);
+    }
+  };
+
+  const handleDelete = (id) => {
+    console.log("Deleting Password with id ", id);
+    setPasswordArray((prevArray) => {
+      const updatedArray = prevArray.filter((item) => item.id !== id);
+      localStorage.setItem("passwords", JSON.stringify(updatedArray));
+      return updatedArray;
+    });
   };
 
   // delete password function
 
   const editPassword = (id) => {
     console.log("Editing Password with id ", id);
-    
+    setForm(passwordArray.filter((i) => i.id === id)[0]);
+    setPasswordArray(passwordArray.filter((item) => item.id !== id));
   };
 
   // Function to handle input changes
