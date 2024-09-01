@@ -33,22 +33,48 @@ const Manager = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: "dark",
     });
   };
 
   // Function to handle form submission
   const savePassword = (e) => {
     e.preventDefault(); // Prevent the default form submission
-
+  
+    // Check if any field is empty
+    if (!form.site || !form.username || !form.password) {
+      toast.error("Please fill in all fields", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return; // Stop further execution
+    }
+  
     // Add the new password to the existing array and save to localStorage
     const updatedPasswords = [...passwordArray, { ...form, id: uuidv4() }];
     setPasswordArray(updatedPasswords);
     localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
-
+  
     // Reset the form fields
     setForm({ site: "", username: "", password: "" });
+    toast.success("Password saved successfully", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   };
+  
 
   // delete password function
 
@@ -71,6 +97,16 @@ const Manager = () => {
       localStorage.setItem("passwords", JSON.stringify(updatedArray));
       return updatedArray;
     });
+    toast.success("Password Deleted sucessfully", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   };
 
   // delete password function
@@ -79,6 +115,7 @@ const Manager = () => {
     console.log("Editing Password with id ", id);
     setForm(passwordArray.filter((i) => i.id === id)[0]);
     setPasswordArray(passwordArray.filter((item) => item.id !== id));
+    
   };
 
   // Function to handle input changes
