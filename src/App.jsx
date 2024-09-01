@@ -2,6 +2,8 @@ import "./App.css";
 import Footer from "./Components/Footer";
 import Manager from "./Components/Manager";
 import Navbar from "./Components/Navbar";
+import { ToastContainer } from "react-toastify";
+
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
       </div>
 
       <Footer />
+      <ToastContainer/>
+
     </>
   );
 }

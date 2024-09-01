@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Manager = () => {
   // State to manage form data
@@ -22,7 +24,16 @@ const Manager = () => {
   // Copy text function
   const copyText = (text) => {
     navigator.clipboard.writeText(text);
-    alert('Text Has been copied');
+    toast.success("Text Copied To Clipboard", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   // Function to handle form submission
@@ -133,6 +144,7 @@ const Manager = () => {
                 <th className="p-4 border-b border-gray-600">Website</th>
                 <th className="p-4 border-b border-gray-600">Username</th>
                 <th className="p-4 border-b border-gray-600">Password</th>
+                <th className="p-4 border-b border-gray-600">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -206,6 +218,19 @@ const Manager = () => {
                             colors="primary:#fff,secondary:#fff"
                           ></lord-icon>
                         </div>
+                      </div>
+                    </td>
+                    <td className="p-4 border-b border-gray-600 text-white text-center gap-2">
+                      <div className="flex items-center justify-center gap-2">
+                        <span className="cursor-pointer"> 
+                          <lord-icon
+                            src="https://cdn.lordicon.com/wuvorxbv.json"
+                            trigger="hover"
+                            stroke="light"
+                            colors="primary:#fff,secondary:#fff"
+                            style={{"width":"25px","height":"25px"}}
+                          ></lord-icon>
+                        </span>
                       </div>
                     </td>
                   </tr>
