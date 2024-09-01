@@ -18,3 +18,30 @@ html, body {
     overflow-x: hidden; /* Optional: prevents horizontal overflow */
   }
   
+
+  /* Make the table container responsive */
+/* Make the table container scrollable on small screens */
+.passwords {
+    overflow-x: auto; /* Enables horizontal scrolling */
+  }
+  
+  .table-auto {
+    min-width: 600px; /* Ensures the table does not shrink too much */
+  }
+  
+  /* Ensure table headings and cells are not too cramped */
+  th, td {
+    white-space: nowrap; /* Prevents text from wrapping */
+  }
+  
+  /* Optional: Adjust font size and padding on smaller screens */
+  @media (max-width: 768px) {
+    .p-4 {
+      padding: 0.5rem; /* Reduces padding for smaller screens */
+    }
+  
+    th, td {
+      font-size: 0.875rem; /* Reduces font size for better fit */
+    }
+  }
+  
