@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const Manager = () => {
   // State to manage form data
@@ -42,7 +42,7 @@ const Manager = () => {
     e.preventDefault(); // Prevent the default form submission
 
     // Add the new password to the existing array and save to localStorage
-    const updatedPasswords = [...passwordArray, {...form, id: uuidv4()}];
+    const updatedPasswords = [...passwordArray, { ...form, id: uuidv4() }];
     setPasswordArray(updatedPasswords);
     localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
 
@@ -50,18 +50,23 @@ const Manager = () => {
     setForm({ site: "", username: "", password: "" });
   };
 
-  // delete password function 
+  // delete password function
 
-  const deletePassword = (id) =>{
-    console.log("Deleting Password with id " , id)
-  }
+  const deletePassword = (id) => {
+    console.log("Deleting Password with id ", id);
+    setPasswordArray(passwordArray.filter((item) => item.id !== id));
+    localStorage.setItem(
+      "passwords",
+      JSON.stringify(passwordArray.filter((item) => item.id !== id))
+    );
+  };
 
-  
-  // delete password function 
+  // delete password function
 
-  const editPassword = (id) =>{
-    console.log("Editing Password with id " , id)
-  }
+  const editPassword = (id) => {
+    console.log("Editing Password with id ", id);
+    
+  };
 
   // Function to handle input changes
   const handleChange = (e) => {
@@ -236,23 +241,28 @@ const Manager = () => {
                     </td>
                     <td className="p-4 border-b border-gray-600 text-white text-center gap-2">
                       <div className="flex items-center justify-center gap-2">
-                        <span className="cursor-pointer mx-2 "
-                        onClick={() => editPassword(item.id)}> 
+                        <span
+                          className="cursor-pointer mx-2 "
+                          onClick={() => editPassword(item.id)}
+                        >
                           <lord-icon
                             src="https://cdn.lordicon.com/wuvorxbv.json"
                             trigger="hover"
                             stroke="light"
                             colors="primary:#fff,secondary:#fff"
-                            style={{"width":"25px","height":"25px"}}
+                            style={{ width: "25px", height: "25px" }}
                           ></lord-icon>
                         </span>
-                        <span className="cursor-pointer mx-2" onClick={() => deletePassword(item.id)}> 
+                        <span
+                          className="cursor-pointer mx-2"
+                          onClick={() => deletePassword(item.id)}
+                        >
                           <lord-icon
                             src="https://cdn.lordicon.com/drxwpfop.json"
                             trigger="hover"
                             stroke="light"
                             colors="primary:#fff,secondary:#fff"
-                            style={{"width":"25px","height":"25px"}}
+                            style={{ width: "25px", height: "25px" }}
                           ></lord-icon>
                         </span>
                       </div>
